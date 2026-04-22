@@ -3,103 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angatu: Relatório de Evolução Estratégica</title>
+    <title>Angatu: Relatório de Evolução Estratégica - Sessão 02</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Palette Name: Vibrant Tech Blues & Alerts -->
-    <!-- Plan Summary: Narrative starts with the project's purpose and initial TRL mismatch, moves to the budget allocation risks, visualizes the strategic pivot from B2C to B2B (Cardiology), highlights the critical Edital goals gap, and concludes with the 3 major action points (Societary, MVP, App). -->
+    <!-- Palette Name: Vibrant Tech & Alert (High Contrast) -->
+    <!-- Plan Summary: O infográfico evolui da análise inicial de bugs para a estruturação estratégica B2B. Destaca o risco do Cap Table (14% Raja) e as metas do edital, finalizando com o plano de ação priorizado da Sessão 02. -->
     <!-- Visualization Choices: 
-         1. Bar Chart -> Compare -> TRL Evolution (Shows reality check). Chart.js (Canvas). No SVG.
-         2. Pie Chart -> Composition -> Budget Allocation (Highlights IT vs Sales imbalance). Chart.js (Canvas). No SVG.
-         3. Doughnut Chart -> Inform/Compare -> Edital User Goal (Highlights critical gap). Chart.js (Canvas). No SVG.
-         4. HTML Table/Grid -> Organize -> Shift from Session 1 to 2. HTML/Tailwind. No SVG. -->
+         - Bar Chart: Comparação de TRL (Sessão 01 vs 02). Chart.js (Canvas). No SVG.
+         - Pie Chart: Alocação de Recursos (Risco de desbalanceamento TI/Vendas). Chart.js (Canvas). No SVG.
+         - HTML/CSS Components: Diagrama de Pivotagem e Cards de Plano de Ação. No SVG. -->
     <!-- Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. -->
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
         
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f1f5f9; 
+        }
+
         .chart-container {
             position: relative;
             width: 100%;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
             height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+            max-height: 350px;
         }
 
-        .card {
+        .action-card {
             background: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 1rem;
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-top: 4px solid #3b82f6;
+            border-left: 6px solid #2563eb;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
         }
 
-        .card-red { border-top-color: #f43f5e; }
-        .card-green { border-top-color: #10b981; }
-        .card-amber { border-top-color: #f59e0b; }
+        .action-card:hover {
+            transform: translateY(-5px);
+        }
 
-        .diagram-box {
-            background: #eff6ff;
-            border: 2px dashed #93c5fd;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            text-align: center;
-            font-weight: 600;
-            color: #1e3a8a;
+        .status-pill {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="text-slate-900 antialiased">
 
-    <nav class="bg-slate-900 text-white p-4 sticky top-0 z-50 shadow-md">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div>
-                <h1 class="text-xl font-bold tracking-tight">ANGATU <span class="font-light text-blue-400">| BrChain</span></h1>
-                <p class="text-xs text-slate-400 uppercase tracking-widest">Sessão 01 vs Sessão 02 (Abril 2026)</p>
+    <header class="gradient-bg text-white py-12 px-6 shadow-2xl">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="space-y-4 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 px-3 py-1 rounded-full">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-blue-300">Atualização Sessão 02</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">Evolução Estratégica <span class="text-blue-500">Angatu</span></h1>
+                <p class="text-slate-400 max-w-xl text-lg font-light">
+                    Monitoramento de tração, maturidade tecnológica e gestão de riscos para o Edital 10/2025 FAPDF.
+                </p>
             </div>
-            <div class="text-2xl">&#128202;</div>
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm text-center">
+                <div class="text-4xl font-black text-blue-400 mb-1">TRL 6</div>
+                <div class="text-xs uppercase tracking-tighter text-slate-500">Maturidade Tecnológica</div>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <main class="max-w-6xl mx-auto p-4 md:p-8">
+    <main class="max-w-6xl mx-auto px-6 -mt-8 pb-20">
         
-        <header class="mb-10 text-center max-w-3xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">A Saúde do Cidadão na Palma da Mão</h2>
-            <p class="text-lg text-slate-600">
-                Uma análise do ecossistema digital de saúde Angatu. Este infográfico mapeia a evolução estratégica da startup entre as duas primeiras sessões de mentoria, destacando o choque de realidade tecnológica, a mudança de foco comercial para o mercado B2B (Cardiologia) e os riscos críticos de cumprimento das metas do Edital FAPDF.
-            </p>
-        </header>
-
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            
-            <div class="card">
-                <h3 class="text-xl font-bold mb-2 flex items-center gap-2">
-                    <span class="text-2xl">&#128200;</span> Choque de Realidade (TRL)
-                </h3>
-                <p class="text-sm text-slate-600 mb-6">
-                    A maturidade tecnológica (TRL) declarada inicialmente no projeto era 9 (Sistema completo e operante). Após a avaliação na Sessão 01, constatou-se que erros técnicos básicos impediam a tração, ajustando a realidade para TRL 6 na Sessão 02, com foco real na estruturação de interoperabilidade (HL7/FHIR).
+        <!-- Comparativo de Evolução -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <span class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                        &#128200;
+                    </span>
+                    Ajuste de Realidade (TRL)
+                </h2>
+                <p class="text-sm text-slate-500 mb-8 leading-relaxed">
+                    A evolução técnica entre a Sessão 01 e 02 marca a transição da "correção de bugs" para a "estruturação de interoperabilidade". Embora o TRL tenha sido rebaixado da declaração inicial (9), a base agora é sólida em padrões médicos (FHIR/HL7).
                 </p>
                 <div class="chart-container">
                     <canvas id="trlChart"></canvas>
                 </div>
             </div>
 
-            <div class="card card-red">
-                <h3 class="text-xl font-bold mb-2 flex items-center gap-2">
-                    <span class="text-2xl">&#128176;</span> Risco de Orçamento
-                </h3>
-                <p class="text-sm text-slate-600 mb-6">
-                    O planejamento inicial de gastos do edital concentrou de forma alarmante os recursos em Tecnologia da Informação. Esta alocação negligencia esforços vitais de marketing e vendas, essenciais para atingir o ponto de equilíbrio financeiro e a meta de R$ 3 milhões.
+            <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <span class="bg-red-100 p-2 rounded-lg text-red-600">
+                        &#128176;
+                    </span>
+                    Risco de Queima de Caixa
+                </h2>
+                <p class="text-sm text-slate-500 mb-8 leading-relaxed">
+                    O desequilíbrio entre investimentos em TI (70%) e Vendas (15%) é o principal gargalo para atingir a meta de R$ 3 milhões de faturamento. A ausência de braço comercial ativo coloca em risco a sustentabilidade do projeto.
                 </p>
                 <div class="chart-container">
                     <canvas id="budgetChart"></canvas>
@@ -107,126 +117,150 @@
             </div>
         </section>
 
-        <section class="card card-green mb-8">
-            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2 text-center justify-center">
-                <span class="text-2xl">&#128257;</span> A Virada Estratégica (Pivot)
-            </h3>
-            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">
-                A evolução mais significativa entre a Sessão 01 e 02 foi a mudança no posicionamento de mercado. A equipe abandonou a dispersão do modelo "App para todos" (B2C) e focou as energias na criação de uma plataforma de integração de dados para Clínicas de Cardiologia (B2B).
+        <!-- Pivotagem Estratégica -->
+        <section class="bg-white rounded-3xl p-10 shadow-xl border border-slate-200 mb-12 overflow-hidden relative">
+            <div class="absolute top-0 right-0 p-8 opacity-10 text-8xl grayscale">
+                &#128257;
+            </div>
+            <h2 class="text-3xl font-black text-slate-900 mb-2">Pivot: Do App ao Ecossistema</h2>
+            <p class="text-slate-500 mb-10 max-w-2xl">
+                O foco saiu da tentativa de escala orgânica B2C para a resolução de dores reais em clínicas de cardiologia (B2B).
             </p>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-100 border-b-2 border-slate-200">
-                            <th class="p-4 font-bold text-slate-700">Pilar</th>
-                            <th class="p-4 font-bold text-slate-700">Sessão 01 (Diagnóstico)</th>
-                            <th class="p-4 font-bold text-slate-700">Sessão 02 (Estruturação)</th>
-                            <th class="p-4 font-bold text-slate-700">Status Atual</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b border-slate-100">
-                            <td class="p-4 font-semibold">Engenharia</td>
-                            <td class="p-4 text-slate-600">Foco em apagar incêndios e bugs do App</td>
-                            <td class="p-4 text-slate-800 font-medium bg-blue-50">Foco em Arquitetura de Interoperabilidade (FHIR)</td>
-                            <td class="p-4 text-green-600 font-bold">&#8593; Evoluindo</td>
-                        </tr>
-                        <tr class="border-b border-slate-100">
-                            <td class="p-4 font-semibold">Comercial</td>
-                            <td class="p-4 text-slate-600">B2C Indefinido (Dependente de orgânico)</td>
-                            <td class="p-4 text-slate-800 font-medium bg-blue-50">Foco B2B em Clínicas de Cardiologia</td>
-                            <td class="p-4 text-amber-500 font-bold">&#8594; Alinhando</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-semibold">Jurídico/Societário</td>
-                            <td class="p-4 text-slate-600">Pendência de Registro de PI (INPI)</td>
-                            <td class="p-4 text-slate-800 font-medium bg-red-50">Risco Crítico Identificado: 14% Raja Ventures</td>
-                            <td class="p-4 text-red-600 font-bold">&#9888; Atenção Crítica</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col items-center text-center">
+                    <div class="text-4xl mb-4">&#128241;</div>
+                    <h4 class="font-bold text-slate-800">B2C (Sessão 01)</h4>
+                    <p class="text-xs text-slate-500 mt-2">Foco em usuários finais e retenção via app Android.</p>
+                </div>
+                <div class="flex items-center justify-center text-blue-500">
+                    <div class="hidden md:block text-4xl font-bold">&#8594;</div>
+                    <div class="md:hidden text-4xl font-bold">&#8595;</div>
+                </div>
+                <div class="p-6 bg-blue-600 rounded-2xl text-white shadow-xl flex flex-col items-center text-center">
+                    <div class="text-4xl mb-4">&#127973;</div>
+                    <h4 class="font-bold">B2B (Sessão 02)</h4>
+                    <p class="text-xs text-blue-100 mt-2">Clínicas de Cardiologia: Dashboards e Interoperabilidade FHIR.</p>
+                </div>
             </div>
+        </section>
+
+        <!-- Riscos Críticos e Cap Table -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-red-50 rounded-3xl p-8 border-2 border-red-100">
+                <h3 class="text-xl font-extrabold text-red-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">&#9888;</span> O "Nó" Societário
+                </h3>
+                <div class="flex flex-col items-center py-6">
+                    <div class="w-32 h-32 rounded-full border-8 border-red-500 flex flex-col items-center justify-center bg-white shadow-lg">
+                        <span class="text-3xl font-black text-red-600">14%</span>
+                        <span class="text-[8px] uppercase font-bold text-slate-400">Raja Ventures</span>
+                    </div>
+                    <p class="mt-6 text-sm text-red-800 text-center font-medium leading-snug">
+                        A participação de 14% por mentoria é um valor fora do mercado e impede novos aportes. <br>
+                        <strong>Ação: Buyout/Renegociação é Prioridade Zero.</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 rounded-3xl p-8 text-white">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <span class="text-2xl">&#127919;</span> Semáforo de Metas (Edital)
+                </h3>
+                <div class="space-y-6">
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-bold uppercase tracking-wider">
+                            <span>Receita (R$ 3M)</span>
+                            <span class="text-red-500">Risco Crítico</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2">
+                            <div class="bg-red-500 h-2 rounded-full w-2 shadow-[0_0_10px_#ef4444]"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-bold uppercase tracking-wider">
+                            <span>Usuários Ativos (25k)</span>
+                            <span class="text-red-500">Risco Crítico</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2">
+                            <div class="bg-red-500 h-2 rounded-full w-2 shadow-[0_0_10px_#ef4444]"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-bold uppercase tracking-wider">
+                            <span>Meta 4: Aperfeiçoamento</span>
+                            <span class="text-green-500">Em Evolução</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full w-[40%] shadow-[0_0_10px_#10b981]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOVO PLANO DE AÇÃO -->
+        <section class="space-y-6">
+            <h2 class="text-3xl font-black text-slate-900 flex items-center gap-3">
+                <span class="bg-blue-600 text-white p-2 rounded-xl">&#128640;</span>
+                Plano de Ação: Prioridades Sessão 02
+            </h2>
             
-            <div class="mt-8 flex flex-col md:flex-row items-center justify-center gap-4">
-                <div class="diagram-box flex-1">
-                    <span class="text-3xl block mb-2">&#128241;</span>
-                    Paciente (B2C)
-                    <div class="text-xs text-slate-500 font-normal mt-1">App Android</div>
-                </div>
-                <div class="text-slate-400 font-bold text-2xl">&#8594;</div>
-                <div class="diagram-box flex-1 bg-green-50 border-green-300 text-green-800">
-                    <span class="text-3xl block mb-2">&#128209;</span>
-                    Interoperabilidade
-                    <div class="text-xs font-normal mt-1">HL7 / FHIR</div>
-                </div>
-                <div class="text-slate-400 font-bold text-2xl">&#8594;</div>
-                <div class="diagram-box flex-1 bg-blue-100 border-blue-400 text-blue-900 shadow-md transform scale-105">
-                    <span class="text-3xl block mb-2">&#127973;</span>
-                    Clínicas de Cardiologia (B2B)
-                    <div class="text-xs font-normal mt-1">Dashboard Médico & Retenção</div>
-                </div>
-            </div>
-        </section>
-
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            <div class="card card-red">
-                <h3 class="text-xl font-bold mb-2 flex items-center gap-2">
-                    <span class="text-2xl">&#128226;</span> Metas do Edital em Risco
-                </h3>
-                <p class="text-sm text-slate-600 mb-6">
-                    A Meta 1 do Edital FAPDF exige o alcance de 25.000 usuários ativos. Atualmente, devido aos erros que geraram "churn" precoce e à falta de uma estratégia GTM robusta, a base retida está próxima de zero, representando o maior risco imediato do projeto.
-                </p>
-                <div class="chart-container">
-                    <canvas id="usersChart"></canvas>
-                </div>
-            </div>
-
-            <div class="card card-amber flex flex-col justify-center items-center text-center">
-                <h3 class="text-xl font-bold mb-2 w-full text-left flex items-center gap-2">
-                    <span class="text-2xl">&#9888;</span> Alerta de Cap Table
-                </h3>
-                <p class="text-sm text-slate-600 mb-8 w-full text-left">
-                    O diagnóstico jurídico revelou que a Raja Ventures detém 14% do negócio como contrapartida de mentoria passada. Este valor é considerado fora da realidade de mercado e configura uma barreira massiva para a atração de capital privado (Meta 5).
-                </p>
-                <div class="bg-red-50 text-red-700 border border-red-200 rounded-full w-48 h-48 flex flex-col items-center justify-center shadow-inner mb-4">
-                    <span class="text-5xl font-black">14%</span>
-                    <span class="text-sm font-semibold uppercase tracking-widest mt-1">Equity</span>
-                </div>
-                <p class="text-red-600 font-bold">Ação Exigida: Renegociação Imediata ("Buyout")</p>
-            </div>
-        </section>
-
-        <section class="bg-slate-900 text-white rounded-xl p-8 shadow-lg">
-            <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
-                <span class="text-2xl">&#128640;</span> Próximos Marcos de Sucesso (Plano de Ação)
-            </h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
-                    <div class="text-blue-400 font-black text-4xl mb-2">01</div>
-                    <h4 class="font-bold text-lg mb-2">Protótipo B2B</h4>
-                    <p class="text-sm text-slate-400">Finalizar e aprovar o wireframe de alta fidelidade do Dashboard para Clínicas (Demo comercial).</p>
+                <!-- Ação 1 -->
+                <div class="action-card border-l-red-500">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="status-pill bg-red-100 text-red-600">Prioridade 0</span>
+                        <span class="text-2xl">&#128109;</span>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-lg mb-2">Regularização Societária</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Iniciar conversa formal com a Raja Ventures para renegociação ou "buyout" da participação de 14%. Limpar o Cap Table é vital para a Meta 5.
+                    </p>
                 </div>
-                <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
-                    <div class="text-red-400 font-black text-4xl mb-2">02</div>
-                    <h4 class="font-bold text-lg mb-2">Renegociação Raja</h4>
-                    <p class="text-sm text-slate-400">Redigir e enviar documento formal de renegociação societária para adequação do Cap Table.</p>
+
+                <!-- Ação 2 -->
+                <div class="action-card border-l-blue-500">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="status-pill bg-blue-100 text-blue-600">Próximos 15 dias</span>
+                        <span class="text-2xl">&#128187;</span>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-lg mb-2">MVP B2B (Dashboard)</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Finalizar a visualização básica do Dashboard Médico. O foco é uma demo comercial para clínicas de cardiologia (PoC paga).
+                    </p>
                 </div>
-                <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
-                    <div class="text-green-400 font-black text-4xl mb-2">03</div>
-                    <h4 class="font-bold text-lg mb-2">Retenção no App</h4>
-                    <p class="text-sm text-slate-400">Lançar atualização corrigindo bugs críticos e garantir a retenção dos primeiros 100 usuários orgânicos ativos.</p>
+
+                <!-- Ação 3 -->
+                <div class="action-card border-l-green-500">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="status-pill bg-green-100 text-green-600">Estabilização</span>
+                        <span class="text-2xl">&#9989;</span>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-lg mb-2">Correção Crítica (Android)</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Lançar atualização do app Android corrigindo os erros que geram churn. Reter os primeiros 100 usuários ativos orgânicos.
+                    </p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-slate-200 text-slate-500 text-center py-6 mt-12 text-sm">
-        <p>Desenvolvido para acompanhamento de mentoria estratégica.</p>
+    <footer class="bg-white py-12 border-t border-slate-200">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-slate-400 text-sm font-medium">
+                © 2026 Angatu | Sistema de Mentoria Estratégica
+            </div>
+            <div class="flex gap-4">
+                <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-xs font-bold uppercase">Edital 10/2025</span>
+                <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-xs font-bold uppercase">FAPDF Start BSB</span>
+            </div>
+        </div>
     </footer>
 
     <script>
+        // Utilitário para quebra de labels longas
         const processLabel = (label, maxChars = 16) => {
             if (label.length <= maxChars) return label;
             const words = label.split(' ');
@@ -244,42 +278,30 @@
             return lines;
         };
 
+        // Configuração Global de Tooltips
         const globalTooltipConfig = {
             tooltip: {
                 callbacks: {
                     title: function(tooltipItems) {
                         const item = tooltipItems[0];
                         let label = item.chart.data.labels[item.dataIndex];
-                        if (Array.isArray(label)) {
-                            return label.join(' ');
-                        } else {
-                            return label;
-                        }
+                        return Array.isArray(label) ? label.join(' ') : label;
                     }
                 }
             }
         };
 
-        const vibrantColors = {
-            blue: '#3b82f6',
-            cyan: '#06b6d4',
-            green: '#10b981',
-            red: '#f43f5e',
-            amber: '#f59e0b',
-            slate: '#cbd5e1'
-        };
-
-        const trlLabels = ['TRL Declarada (Início)', 'TRL Avaliada (Sessão 01)', 'TRL Atual (Sessão 02)'].map(l => processLabel(l));
+        // Gráfico TRL
         const ctxTrl = document.getElementById('trlChart').getContext('2d');
         new Chart(ctxTrl, {
             type: 'bar',
             data: {
-                labels: trlLabels,
+                labels: ['Declaração Inicial', 'Sessão 01 (Diagnóstico)', 'Sessão 02 (Estruturação)'].map(l => processLabel(l)),
                 datasets: [{
                     label: 'Nível TRL',
                     data: [9, 5.5, 6],
-                    backgroundColor: [vibrantColors.slate, vibrantColors.red, vibrantColors.blue],
-                    borderRadius: 4
+                    backgroundColor: ['#e2e8f0', '#ef4444', '#2563eb'],
+                    borderRadius: 8
                 }]
             },
             options: {
@@ -289,52 +311,29 @@
                     ...globalTooltipConfig
                 },
                 scales: {
-                    y: { beginAtZero: true, max: 9, title: { display: true, text: 'Nível de Maturidade' } }
+                    y: { beginAtZero: true, max: 9, grid: { display: false } }
                 }
             }
         });
 
-        const budgetLabels = ['Desenvolvimento de TI', 'Marketing & Vendas', 'Operacional / Outros'].map(l => processLabel(l));
+        // Gráfico Orçamento
         const ctxBudget = document.getElementById('budgetChart').getContext('2d');
         new Chart(ctxBudget, {
             type: 'pie',
             data: {
-                labels: budgetLabels,
+                labels: ['Desenvolvimento TI', 'Marketing & Vendas', 'Operações/Admin'].map(l => processLabel(l)),
                 datasets: [{
                     data: [70, 15, 15],
-                    backgroundColor: [vibrantColors.red, vibrantColors.green, vibrantColors.amber],
-                    borderWidth: 2,
+                    backgroundColor: ['#ef4444', '#10b981', '#f59e0b'],
+                    borderWidth: 4,
                     borderColor: '#ffffff'
                 }]
             },
             options: {
                 maintainAspectRatio: false,
                 plugins: {
-                    ...globalTooltipConfig,
-                    legend: { position: 'bottom' }
-                }
-            }
-        });
-
-        const userLabels = ['Base Atual Retida', 'Faltante para Meta (Edital)'].map(l => processLabel(l));
-        const ctxUsers = document.getElementById('usersChart').getContext('2d');
-        new Chart(ctxUsers, {
-            type: 'doughnut',
-            data: {
-                labels: userLabels,
-                datasets: [{
-                    data: [100, 24900], 
-                    backgroundColor: [vibrantColors.green, vibrantColors.slate],
-                    borderWidth: 0,
-                    circumference: 180,
-                    rotation: 270
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                plugins: {
-                    ...globalTooltipConfig,
-                    legend: { position: 'bottom' }
+                    legend: { position: 'bottom' },
+                    ...globalTooltipConfig
                 }
             }
         });
