@@ -2,349 +2,347 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angatu: Relatório de Evolução e Prestação de Contas - Sessão 02</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Angatu | War Room - Sessão 02 | Dashboard Estratégico</title>
+    <!-- Google Fonts + Tailwind + Chart.js -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Palette Name: Vibrant Tech & Alert (High Contrast) -->
-    <!-- Plan Summary: O infográfico evolui para incluir a análise detalhada de Prestação de Contas. Remove referências específicas a cardiologia para focar em clínicas gerais. Apresenta o status das metas do edital, riscos de faturamento e usuários, e o plano de ação atualizado. -->
-    <!-- Visualization Choices: 
-         - Bar Chart: Evolução TRL (Labels com wrapping > 16 chars). Chart.js (Canvas). No SVG.
-         - Pie Chart: Composição de Gastos (Foco em desequilíbrio). Chart.js (Canvas). No SVG.
-         - Gauge/Doughnut: Status de Metas do Edital. Chart.js (Canvas). No SVG.
-         - HTML/CSS Components: Painel de Prestação de Contas e Pivotagem. No SVG. -->
-    <!-- Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. -->
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-        
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #f1f5f9; 
+        * {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
         }
-
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            height: 300px;
-            max-height: 350px;
+        body {
+            background: #f4f7fc;
+            background-image: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.03) 0%, #ffffff 90%);
         }
-
-        .action-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            border-left: 6px solid #2563eb;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        /* cards modernos com sombra suave */
+        .card-white {
+            background: #ffffff;
+            border: 1px solid #e9eef3;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-
-        .status-badge {
-            padding: 0.25rem 0.6rem;
-            border-radius: 0.5rem;
-            font-size: 0.7rem;
+        .card-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+        }
+        .badge-trl {
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        }
+        .badge-risk {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+        }
+        .action-card-0 {
+            border-left: 6px solid #dc2626;
+            background: linear-gradient(105deg, #ffffff, #fff9f9);
+        }
+        .action-card-1 {
+            border-left: 6px solid #f59e0b;
+            background: linear-gradient(105deg, #ffffff, #fffbf5);
+        }
+        .action-card-2 {
+            border-left: 6px solid #10b981;
+            background: linear-gradient(105deg, #ffffff, #f0fdf4);
+        }
+        .pivot-arrow {
+            font-size: 2.2rem;
             font-weight: 800;
-            text-transform: uppercase;
+            color: #2563eb;
+            letter-spacing: 6px;
         }
-
-        .gradient-header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        .text-slate-800 {
+            color: #1e293b;
         }
-
-        .compliance-box {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 1rem;
-            padding: 1rem;
+        .border-soft {
+            border-color: #e2e8f0;
+        }
+        hr {
+            border-color: #e2e8f0;
         }
     </style>
 </head>
-<body class="text-slate-900 antialiased">
+<body class="text-slate-800 p-5 md:p-8">
 
-    <header class="gradient-header text-white py-10 px-6 shadow-2xl">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="space-y-3">
-                <div class="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 px-3 py-1 rounded-full text-blue-300">
-                    <span class="font-bold text-[10px] uppercase tracking-widest">Sessão 02 | Versão v3</span>
+    <div class="max-w-7xl mx-auto space-y-7">
+        
+        <!-- HEADER: Nome empresa, timeline, badges (clean white bg) -->
+        <div class="flex flex-wrap justify-between items-center gap-4 pb-4 border-b border-gray-200">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-800 via-indigo-700 to-blue-800 bg-clip-text text-transparent">ANGATU</h1>
+                <p class="text-slate-500 text-sm md:text-base mt-1 font-medium">BRCHAIN LTDA · Saúde Interoperável · HL7/FHIR · StartBsb</p>
+                <div class="flex flex-wrap gap-3 mt-3">
+                    <div class="flex items-center gap-2 text-xs bg-slate-100 rounded-full px-3 py-1 text-slate-700">
+                        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                        <span>Sessão 01 · 05/04/2026</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs bg-slate-100 rounded-full px-3 py-1 text-slate-700">
+                        <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                        <span>Sessão 02 · 30/04/2026</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs bg-slate-100 rounded-full px-3 py-1 text-slate-700">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                        <span>Próxima: Maio/2026</span>
+                    </div>
                 </div>
-                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">Angatu: <span class="text-blue-500">Gestão & Prestação de Contas</span></h1>
-                <p class="text-slate-400 max-w-xl text-md font-medium">
-                    Consolidado estratégico para o Edital 10/2025 FAPDF. Foco em Clínicas e Saúde Digital.
-                </p>
             </div>
             <div class="flex gap-4">
-                <div class="bg-white/5 p-4 rounded-xl border border-white/10 text-center min-w-[120px]">
-                    <div class="text-2xl font-black text-blue-400">TRL 6</div>
-                    <div class="text-[10px] uppercase text-slate-500">Maturidade</div>
+                <div class="badge-trl px-5 py-2 rounded-full text-center shadow-md">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-blue-100">Maturidade TRL</span>
+                    <p class="text-2xl font-black leading-5 text-white">5-6</p>
+                    <span class="text-[11px] text-slate-200">• declarado TRL9 •</span>
                 </div>
-                <div class="bg-red-500/10 p-4 rounded-xl border border-red-500/20 text-center min-w-[120px]">
-                    <div class="text-2xl font-black text-red-500">ALTO</div>
-                    <div class="text-[10px] uppercase text-red-400">Risco Meta 2</div>
+                <div class="badge-risk px-5 py-2 rounded-full text-center shadow-md">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-red-100">RISCO GERAL</span>
+                    <p class="text-xl font-black leading-5 text-white">CRÍTICO</p>
+                    <span class="text-[11px]">meta ARR R$3M alarmante</span>
                 </div>
             </div>
         </div>
-    </header>
 
-    <main class="max-w-6xl mx-auto px-6 -mt-6 pb-20">
-        
-        <!-- Seção de Métricas Principais -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-            <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200">
-                <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="bg-blue-100 p-2 rounded-lg text-blue-600">📊</span>
-                    Evolução TRL (Reality Check)
-                </h2>
-                <div class="chart-container">
-                    <canvas id="trlChart"></canvas>
+        <!-- LINHA 1: Gráfico Evolução TRL + Gráfico de Alocação de Recursos (Doughnut) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Evolução TRL (bar chart) -->
+            <div class="card-white rounded-3xl shadow-lg p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold flex items-center gap-2 text-slate-800"><span class="text-blue-600">📊</span> Evolução TRL · Angatu</h2>
+                    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">TRL 5 → 6 (real) vs meta edital</span>
                 </div>
+                <canvas id="trlChart" width="400" height="280" style="max-height: 280px; width:100%"></canvas>
+                <div class="text-center text-xs text-slate-500 mt-3 bg-slate-50 p-2 rounded-xl">⚠️ Risco crítico: maturidade tecnológica real (TRL5-6) inferior ao declarado (TRL9) no edital StartBsb</div>
             </div>
 
-            <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200">
-                <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="bg-red-100 p-2 rounded-lg text-red-600">💸</span>
-                    Alocação de Recursos (FAPDF)
-                </h2>
-                <div class="chart-container">
-                    <canvas id="budgetChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <!-- NOVO: ANÁLISE DE PRESTAÇÃO DE CONTAS -->
-        <section class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 mb-10">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                <div>
-                    <h2 class="text-2xl font-black text-slate-900 flex items-center gap-2">
-                        <span class="bg-amber-100 p-2 rounded-xl text-amber-600">📋</span>
-                        Análise de Prestação de Contas
-                    </h2>
-                    <p class="text-sm text-slate-500">Status das obrigações e metas pactuadas no Edital 10/2025.</p>
-                </div>
-                <div class="bg-slate-100 px-4 py-2 rounded-full text-xs font-bold text-slate-600">
-                    Última Atualização: Abril 2026
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Coluna 1: Metas em Andamento -->
-                <div class="space-y-4">
-                    <h4 class="text-xs font-black uppercase text-slate-400 tracking-widest border-b pb-2">Metas em Andamento</h4>
-                    <div class="compliance-box">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-sm font-bold">Meta 4: Aperfeiçoamento</span>
-                            <span class="status-badge bg-blue-100 text-blue-600">Evoluindo</span>
-                        </div>
-                        <p class="text-xs text-slate-500">Desenvolvimento de dashboards e padrões FHIR para clínicas em progresso.</p>
+            <!-- Alocação de Recursos / Riscos Financeiros (Doughnut) -->
+            <div class="card-white rounded-3xl shadow-lg p-5">
+                <h2 class="text-xl font-bold flex items-center gap-2 mb-4 text-slate-800"><span class="text-emerald-600">💰</span> Alocação de Recursos & Riscos Financeiros</h2>
+                <div class="flex flex-col md:flex-row items-center gap-5">
+                    <div class="w-full md:w-2/3">
+                        <canvas id="resourcesChart" width="300" height="260" style="max-height: 260px; width:100%"></canvas>
                     </div>
-                    <div class="compliance-box">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-sm font-bold">Meta 3: Expansão</span>
-                            <span class="status-badge bg-blue-100 text-blue-600">Em Teste</span>
-                        </div>
-                        <p class="text-xs text-slate-500">Início da prospecção de clínicas para testes de Prova de Conceito (PoC).</p>
+                    <div class="flex-1 space-y-3 text-sm">
+                        <div class="flex justify-between border-b border-gray-200 pb-1"><span class="font-medium">🔧 Desenvolvimento técnico</span><span class="font-bold text-red-600">70%</span></div>
+                        <div class="flex justify-between border-b border-gray-200 pb-1"><span class="font-medium">📢 Vendas & Marketing</span><span class="font-bold text-orange-600">15%</span></div>
+                        <div class="flex justify-between border-b border-gray-200 pb-1"><span class="font-medium">🧠 Admin/Propriedade Intelectual</span><span class="font-bold text-amber-600">10%</span></div>
+                        <div class="flex justify-between"><span class="font-medium">🏢 Infra/Gastos gerais</span><span class="font-bold text-blue-600">5%</span></div>
+                        <div class="mt-3 pt-2 text-xs text-slate-700 bg-amber-50 p-2 rounded-lg border border-amber-200">🔴 Concentração excessiva em dev (70%) → esforço comercial insuficiente; ameaça ao breakeven e validação B2B</div>
                     </div>
                 </div>
-
-                <!-- Coluna 2: Riscos de Cumprimento -->
-                <div class="space-y-4">
-                    <h4 class="text-xs font-black uppercase text-slate-400 tracking-widest border-b pb-2">Riscos de Cumprimento</h4>
-                    <div class="compliance-box border-red-200 bg-red-50">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-sm font-bold text-red-900">Meta 2: R$ 3M</span>
-                            <span class="status-badge bg-red-200 text-red-700">Crítico</span>
-                        </div>
-                        <p class="text-xs text-red-700">Faturamento inexistente. Atraso na comercialização impacta o fluxo do edital.</p>
-                    </div>
-                    <div class="compliance-box border-red-200 bg-red-50">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-sm font-bold text-red-900">Meta 1: 25k Usuários</span>
-                            <span class="status-badge bg-red-200 text-red-700">Crítico</span>
-                        </div>
-                        <p class="text-xs text-red-700">Retenção comprometida por erros técnicos. Necessita de escala B2B urgente.</p>
-                    </div>
-                </div>
-
-                <!-- Coluna 3: Dúvidas e Administrativo -->
-                <div class="space-y-4">
-                    <h4 class="text-xs font-black uppercase text-slate-400 tracking-widest border-b pb-2">Pendências Jurídicas</h4>
-                    <div class="compliance-box border-amber-200 bg-amber-50">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-sm font-bold text-amber-900">Registro de PI</span>
-                            <span class="status-badge bg-amber-200 text-amber-700">Pendente</span>
-                        </div>
-                        <p class="text-xs text-amber-700">Necessário formalizar registro no INPI para proteção de ativos da empresa.</p>
-                    </div>
-                    <div class="compliance-box border-amber-200 bg-amber-50">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-sm font-bold text-amber-900">PoCs Pagas</span>
-                            <span class="status-badge bg-amber-200 text-amber-700">Dúvida</span>
-                        </div>
-                        <p class="text-xs text-amber-700">Alinhar com FAPDF se faturamento de PoC conta para a meta de receita recorrente.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pivotagem Estratégica (Clínicas Gerais) -->
-        <section class="bg-indigo-900 rounded-3xl p-10 shadow-xl text-white mb-10 overflow-hidden relative">
-            <div class="relative z-10">
-                <h2 class="text-3xl font-black mb-2">Redefinição de Mercado</h2>
-                <p class="text-indigo-200 mb-10 max-w-2xl text-lg">
-                    A estratégia B2B agora foca em **Clínicas Gerais**, oferecendo interoperabilidade e retenção de pacientes.
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 text-center">
-                        <span class="text-4xl block mb-4">📱</span>
-                        <h4 class="font-bold text-lg">B2C</h4>
-                        <p class="text-xs text-indigo-300 mt-2">App Individual<br>(Histórico do Paciente)</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <span class="text-blue-400 text-4xl font-black">➔</span>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mt-2">Pivot</span>
-                    </div>
-                    <div class="bg-blue-600 p-6 rounded-2xl border border-blue-400 shadow-2xl text-center scale-105">
-                        <span class="text-4xl block mb-4">🏥</span>
-                        <h4 class="font-bold text-lg">B2B (Clínicas)</h4>
-                        <p class="text-xs text-blue-100 mt-2">Gestão de Dados & Interoperabilidade FHIR</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Plano de Ação Priorizado -->
-        <section class="space-y-6">
-            <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
-                <span class="bg-slate-900 text-white p-2 rounded-lg">🚀</span>
-                Próximas Prioridades (Sessão 02)
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="action-card border-l-red-500">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="status-badge bg-red-100 text-red-600">Vital</span>
-                        <span class="text-2xl">🤝</span>
-                    </div>
-                    <h4 class="font-bold text-slate-900 mb-2">Renegociação Raja</h4>
-                    <p class="text-sm text-slate-500">Reduzir os 14% de equity para viabilizar rodadas de investimento e Meta 5.</p>
-                </div>
-
-                <div class="action-card border-l-blue-500">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="status-badge bg-blue-100 text-blue-600">MVP B2B</span>
-                        <span class="text-2xl">📊</span>
-                    </div>
-                    <h4 class="font-bold text-slate-900 mb-2">Dashboard Clínicas</h4>
-                    <p class="text-sm text-slate-500">Finalizar protótipo para clínicas gerais, permitindo a primeira PoC comercial.</p>
-                </div>
-
-                <div class="action-card border-l-green-500">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="status-badge bg-green-100 text-green-600">Estabilidade</span>
-                        <span class="text-2xl">⚡</span>
-                    </div>
-                    <h4 class="font-bold text-slate-900 mb-2">Correção Android</h4>
-                    <p class="text-sm text-slate-500">Lançar atualização estável para estancar o churn e retomar a Meta 1.</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-slate-900 text-slate-500 py-10 px-6 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-sm">
-                © 2026 <span class="text-slate-300 font-bold">Angatu | BrChain</span> - Sistema de Mentoria Estratégica
-            </div>
-            <div class="flex gap-3">
-                <span class="bg-slate-800 px-3 py-1 rounded-lg text-[10px] font-bold text-slate-400">FAPDF START BSB</span>
-                <span class="bg-slate-800 px-3 py-1 rounded-lg text-[10px] font-bold text-slate-400">EDITAL 10/2025</span>
+                <div class="text-xs text-slate-500 mt-3 text-center bg-slate-50 p-1 rounded-lg">Captação Catalisa ICT: R$120 mil · Necessário readequar plano de aplicação (vendas vs tech)</div>
             </div>
         </div>
-    </footer>
+
+        <!-- LINHA 2: Painel de Prestação de Contas (Metas, Riscos, Pendências) estilo clean -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Metas em Andamento -->
+            <div class="card-white rounded-2xl shadow-md p-5 border border-gray-100">
+                <div class="flex items-center gap-2 border-b border-gray-200 pb-2 mb-3">
+                    <span class="text-2xl">🎯</span>
+                    <h3 class="font-bold text-lg text-slate-800">Metas em andamento</h3>
+                </div>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">▹</span><span><strong class="text-slate-800">Meta 4</strong> – Aperfeiçoamento de soluções (MVP estabilização)</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">▹</span><span><strong class="text-slate-800">Meta 3</strong> – Expansão para hospitais/dashboard B2B (atraso crítico)</span></li>
+                    <li class="flex items-start gap-2"><span class="text-amber-500">⚠️</span><span><strong class="text-slate-800">Meta 2</strong> ARR R$3M · <strong>Meta 1</strong> 25k usuários</span> – alto risco de descumprimento</li>
+                </ul>
+                <div class="mt-4 bg-red-50 rounded-lg p-2 text-xs text-red-700 border border-red-100">🚨 Distanciamento alarmante entre execução atual e metas agressivas de receita (StartBsb)</div>
+            </div>
+            <!-- Riscos de Cumprimento -->
+            <div class="card-white rounded-2xl shadow-md p-5 border border-gray-100">
+                <div class="flex items-center gap-2 border-b border-gray-200 pb-2 mb-3">
+                    <span class="text-2xl">⚠️</span>
+                    <h3 class="font-bold text-lg text-slate-800">Riscos de cumprimento</h3>
+                </div>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex gap-2"><span class="text-red-500">❗</span> Bugs críticos no Android → alta taxa de abandono (churn)</li>
+                    <li class="flex gap-2"><span class="text-red-500">❗</span> Dashboard B2B não entregue → inviabiliza PoC e clientes pagantes</li>
+                    <li class="flex gap-2"><span class="text-red-500">❗</span> TRL real 5-6 vs TRL9 declarado (risco jurídico/reputação)</li>
+                    <li class="flex gap-2"><span class="text-red-500">❗</span> Ausência total de clientes pagantes + falta de braço comercial dedicado</li>
+                </ul>
+            </div>
+            <!-- Pendências Jurídicas / Administrativas -->
+            <div class="card-white rounded-2xl shadow-md p-5 border border-gray-100">
+                <div class="flex items-center gap-2 border-b border-gray-200 pb-2 mb-3">
+                    <span class="text-2xl">⚖️</span>
+                    <h3 class="font-bold text-lg text-slate-800">Pendências Jurídicas & PI</h3>
+                </div>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex gap-2"><span class="text-amber-600">📄</span> Registro da Propriedade Intelectual (INPI) – não formalizado</li>
+                    <li class="flex gap-2"><span class="text-amber-600">🔄</span> Reenquadramento jurídico da startup + renegociação Raja Ventures (CapTable)</li>
+                    <li class="flex gap-2"><span class="text-amber-600">📑</span> Documentação para comprovação de metas parciais do edital</li>
+                </ul>
+                <div class="mt-4 text-xs text-blue-700 bg-blue-50 p-2 rounded-lg">Recomendação Sessão 03: formalizar PI no INPI + organizar evidências de metas</div>
+            </div>
+        </div>
+
+        <!-- LINHA 3: Pivot Estratégico (antes x depois) -->
+        <div class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-3xl border border-indigo-200 p-6 shadow-md">
+            <div class="text-center mb-5">
+                <h2 class="text-2xl font-black flex justify-center items-center gap-2 text-slate-800"><span>🔄 Pivot Estratégico</span> <span class="text-sm bg-white text-slate-700 px-3 py-1 rounded-full shadow-sm">Sessão 02 · Angatu</span></h2>
+                <p class="text-slate-600 text-sm">Mudança de foco: de desenvolvimento interno para validação comercial B2B</p>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 py-4">
+                <!-- Antes -->
+                <div class="flex-1 bg-white p-5 rounded-2xl border-l-4 border-slate-400 w-full text-center md:text-left shadow-sm">
+                    <div class="text-3xl mb-2">📱 B2C / App centric</div>
+                    <div class="text-xs uppercase tracking-wider text-slate-500">Antes (Sessão 01 baseline)</div>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-700">
+                        <li>• MVP Android com bugs críticos de retenção</li>
+                        <li>• IA restrita apenas a exames</li>
+                        <li>• 70% dos recursos alocados em dev técnico</li>
+                        <li>• Sem prospecção ativa B2B</li>
+                    </ul>
+                </div>
+                <div class="pivot-arrow text-4xl md:text-5xl">→ →</div>
+                <!-- Depois: Pivot B2B -->
+                <div class="flex-1 bg-blue-50 p-5 rounded-2xl border-l-4 border-blue-600 w-full text-center md:text-left shadow-sm">
+                    <div class="text-3xl mb-2">🏥 Pivot B2B + Validação</div>
+                    <div class="text-xs uppercase tracking-wider text-emerald-700 font-bold">Nova direção estratégica</div>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-700">
+                        <li>• Dashboard clínicas / hospitais (PoC gratuita de validação)</li>
+                        <li>• Equilíbrio comercial-técnico (readequar gastos)</li>
+                        <li>• Go-to-Market definido: cardiologia e profissionais em trânsito</li>
+                        <li>• Designar responsável exclusivo por prospecção ativa</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-xs text-slate-600 text-center mt-4 bg-white/70 py-2 rounded-xl border border-gray-200">🎯 Sobrevivência: parar de "polir o produto" e começar a vender. Breakeven depende do dashboard B2B operacional.</div>
+        </div>
+
+        <!-- LINHA 4: Cards do Plano de Ação (3 ações prioritárias) -->
+        <div>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-bold text-slate-800">📌 Plano de Ação · Próximas prioridades</h2>
+                <span class="text-xs bg-slate-200 text-slate-700 px-3 py-1 rounded-full">Deadline: Sessão 03</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 1. Prioridade 0 (Estabilização Android) -->
+                <div class="action-card-0 rounded-2xl p-5 shadow-md card-white transition-all">
+                    <div class="flex items-center gap-2 mb-3"><span class="bg-red-100 p-2 rounded-full text-red-600">⚠️🔧</span><span class="text-xs font-bold uppercase tracking-wider text-red-700">Prioridade 0 · Emergência</span></div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800">Estabilizar Android & zerar bugs</h3>
+                    <p class="text-sm text-slate-600">Corrigir falhas críticas de login e uso básico no MVP Android. Churn está impedindo retenção e validação B2C/B2B. Entregar versão estável.</p>
+                    <div class="mt-4 pt-3 border-t border-gray-200 text-xs flex justify-between"><span>🎯 Meta: app sem erros base</span><span class="text-blue-600 font-medium">Responsável: Time Dev</span></div>
+                </div>
+                <!-- 2. Médio Prazo: PoC B2B + dashboard -->
+                <div class="action-card-1 rounded-2xl p-5 shadow-md card-white transition-all">
+                    <div class="flex items-center gap-2 mb-3"><span class="bg-orange-100 p-2 rounded-full text-orange-600">🏥📊</span><span class="text-xs font-bold uppercase tracking-wider text-orange-700">Médio Prazo · Comercial</span></div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800">PoC B2B com primeira clínica</h3>
+                    <p class="text-sm text-slate-600">Entregar Dashboard funcional para hospitais/clínicas. Assinar pelo menos 1 parceria gratuita de validação, iniciar prospecção ativa (responsável exclusivo).</p>
+                    <div class="mt-4 pt-3 border-t border-gray-200 text-xs flex justify-between"><span>💰 impacto: modelo pago</span><span class="text-blue-600 font-medium">Meta: contrato PoC assinado</span></div>
+                </div>
+                <!-- 3. Jurídico & PI -->
+                <div class="action-card-2 rounded-2xl p-5 shadow-md card-white transition-all">
+                    <div class="flex items-center gap-2 mb-3"><span class="bg-emerald-100 p-2 rounded-full text-emerald-700">⚖️📜</span><span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Jurídico & Governança</span></div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800">Registro PI + Revisão CapTable</h3>
+                    <p class="text-sm text-slate-600">Formalizar registro da Propriedade Intelectual no INPI e iniciar renegociação societária com Raja Ventures. Organizar docs para prestação de contas do edital.</p>
+                    <div class="mt-4 pt-3 border-t border-gray-200 text-xs flex justify-between"><span>🔐 Proteção ativo</span><span class="text-blue-600 font-medium">Prazo: Sessão 03</span></div>
+                </div>
+            </div>
+            <!-- Pergunta Estratégica Destacada -->
+            <div class="mt-6 bg-gradient-to-r from-red-50 to-orange-50 p-5 rounded-2xl border border-red-200 shadow-sm">
+                <p class="text-sm font-mono text-red-800 tracking-wide text-center font-bold">❝ PERGUNTA ESTRATÉGICA (SÍNTESE CEO) ❝</p>
+                <p class="text-md md:text-lg font-semibold italic text-slate-800 text-center">"Considerando o atraso no dashboard B2B, como a startup pretende atingir o breakeven se a meta de receita de R$ 3 milhões depende de um produto que ainda não está operacional?"</p>
+            </div>
+        </div>
+
+        <!-- Rodapé com referências -->
+        <div class="text-center text-slate-500 text-xs pt-6 border-t border-gray-200 mt-4">
+            <p>Análise consolidada Sessão 02 · Angatu (BRCHAIN) · StartBsb · Projeções baseadas em dados operacionais reais TRL5-6 · Recomendações Agentes: Produto/Mercado/Finanças/Pessoas/Operações/Prestação de Contas</p>
+        </div>
+    </div>
 
     <script>
-        // Utilitário para quebra de labels longas (> 16 chars)
-        const processLabel = (label, maxChars = 16) => {
-            if (label.length <= maxChars) return label;
-            const words = label.split(' ');
-            let lines = [];
-            let currentLine = '';
-            words.forEach(word => {
-                if ((currentLine + word).length > maxChars) {
-                    if (currentLine) lines.push(currentLine.trim());
-                    currentLine = word + ' ';
-                } else {
-                    currentLine += word + ' ';
-                }
-            });
-            if (currentLine) lines.push(currentLine.trim());
-            return lines;
-        };
-
-        const globalTooltipConfig = {
-            tooltip: {
-                callbacks: {
-                    title: function(tooltipItems) {
-                        const item = tooltipItems[0];
-                        let label = item.chart.data.labels[item.dataIndex];
-                        return Array.isArray(label) ? label.join(' ') : label;
+        (function() {
+            // ---------- GRÁFICO 1: EVOLUÇÃO TRL (BARRAS) ----------
+            const ctx1 = document.getElementById('trlChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['TRL Inicial (Projetado)', 'TRL Sessão 01 (05/04)', 'TRL Atual (Sessão 02)', 'Meta Edital (Declarada)'],
+                    datasets: [{
+                        label: 'Nível de Maturidade Tecnológica (TRL)',
+                        data: [4, 5, 5.5, 9],
+                        backgroundColor: ['#64748b', '#3b82f6', '#f59e0b', '#ef4444'],
+                        borderRadius: 10,
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { labels: { color: '#334155', font: { size: 12, weight: '500' } } },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    let label = context[0].label || '';
+                                    if (label.length > 22) {
+                                        return label.substring(0, 20) + '…';
+                                    }
+                                    return label;
+                                },
+                                label: function(context) {
+                                    return `TRL: ${context.raw}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            title: { display: true, text: 'TRL (Technology Readiness Level)', color: '#475569' },
+                            min: 0, max: 10, grid: { color: '#e2e8f0' }, ticks: { stepSize: 1, color: '#1e293b' }
+                        },
+                        x: { 
+                            ticks: { color: '#1e293b', font: { size: 11 }, maxRotation: 15, minRotation: 10 },
+                            grid: { display: false }
+                        }
                     }
                 }
-            }
-        };
+            });
 
-        // Gráfico TRL
-        const ctxTrl = document.getElementById('trlChart').getContext('2d');
-        new Chart(ctxTrl, {
-            type: 'bar',
-            data: {
-                labels: ['Declaração Inicial', 'Sessão 01 (Diagnóstico)', 'Sessão 02 (Estruturação)'].map(l => processLabel(l)),
-                datasets: [{
-                    label: 'Nível TRL',
-                    data: [9, 5.5, 6],
-                    backgroundColor: ['#e2e8f0', '#ef4444', '#2563eb'],
-                    borderRadius: 8,
-                    barThickness: 40
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    ...globalTooltipConfig
+            // ---------- GRÁFICO 2: ALAÇÃO DE RECURSOS (DOUGHNUT) tratamento de labels longas / tooltips multiline
+            const ctx2 = document.getElementById('resourcesChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Desenvolvimento Técnico (70%)', 'Vendas & Marketing (15%)', 'Jurídico/Propriedade Intelectual (10%)', 'Infraestrutura (5%)'],
+                    datasets: [{
+                        data: [70, 15, 10, 5],
+                        backgroundColor: ['#ef4444', '#f97316', '#eab308', '#3b82f6'],
+                        borderWidth: 0,
+                        hoverOffset: 10,
+                        cutout: '60%'
+                    }]
                 },
-                scales: {
-                    y: { beginAtZero: true, max: 9, grid: { color: '#f1f5f9' } },
-                    x: { grid: { display: false } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#1e293b', font: { size: 10 }, boxWidth: 12 } },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    let rawLabel = tooltipItems[0].label;
+                                    if (rawLabel.length > 18) {
+                                        let splitted = rawLabel.split(' ');
+                                        if (splitted.length > 2) return splitted.slice(0,2).join(' ') + '…';
+                                        return rawLabel.substring(0, 16) + '…';
+                                    }
+                                    return rawLabel;
+                                },
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    let value = context.raw;
+                                    return ` ${label.replace(/\([^)]*\)/, '')}: ${value}% dos recursos`;
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-        });
-
-        // Gráfico de Orçamento
-        const ctxBudget = document.getElementById('budgetChart').getContext('2d');
-        new Chart(ctxBudget, {
-            type: 'doughnut',
-            data: {
-                labels: ['Desenvolvimento TI', 'Marketing & Vendas', 'Operacional'].map(l => processLabel(l)),
-                datasets: [{
-                    data: [70, 15, 15],
-                    backgroundColor: ['#ef4444', '#10b981', '#f59e0b'],
-                    borderWidth: 0,
-                    hoverOffset: 10
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                cutout: '65%',
-                plugins: {
-                    legend: { position: 'bottom', labels: { usePointStyle: true, font: { size: 10 } } },
-                    ...globalTooltipConfig
-                }
-            }
-        });
+            });
+        })();
     </script>
 </body>
 </html>
+```
